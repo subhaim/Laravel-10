@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
 
-    //return view('welcome');
+    return view('welcome');
 
     // Fetch all users
     //$users = DB::select("select * from users");
@@ -62,7 +62,7 @@ Route::get('/', function () {
     // Fetch all users by using Eloquent Model
     //$users = User::get();
     //$users = User::all();
-    $user = User::find(8);
+    //$user = User::find(8);
     //$users = DB::table('users')->where('id', 2)->get();
     //$users = DB::table('users')->find(2);
 
@@ -79,7 +79,7 @@ Route::get('/', function () {
     //delete a user by using Eloquent Model
     //$user = User::where('id', 6)->delete();
 
-    dd($user);
+    //dd($user);
     //dd($user->name);
     //dd($users);
 });
