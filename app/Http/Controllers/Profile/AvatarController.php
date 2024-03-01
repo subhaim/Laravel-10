@@ -22,7 +22,8 @@ class AvatarController extends Controller
          // Store Avatar
 
          //dd($request->input('avatar'));
-         $path = $request->file('avatar')->store('avatars', 'public');
+         //$path = $request->file('avatar')->store('avatars', 'public');
+         $path = Storage::disk('public')->put('avatars', $request->file('avatar'));
          if($oldAvatar = $request->user()->avatar){
             Storage::disk('public')->delete($oldAvatar);
          }

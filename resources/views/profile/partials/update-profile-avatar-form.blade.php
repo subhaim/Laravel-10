@@ -8,7 +8,7 @@
             {{ __("Add or Update your account's avatar.") }}
         </p>
 
-        <img width="100" height="100" class="rounded-full pt-4" src="{{ asset('/storage/'.$user->avatar) }}" alt="user avatar"/>
+        <img width="100" height="100" class="rounded-full mt-4" src="{{ asset('/storage/'.$user->avatar) }}" alt="user avatar"/>
     </header>
 
     <form method="post" action="{{ route('profile.avatar') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
