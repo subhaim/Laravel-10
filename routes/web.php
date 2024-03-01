@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Profile\AvatarController;
+use OpenAI\Laravel\Facades\OpenAI;
 
 
 /*
@@ -93,7 +94,31 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/profile/avatar', [AvatarController::class, 'update'])->name('profile.avatar');
+    Route::patch('/profile/avatar/ai', [AvatarController::class, 'generate'])->name('profile.avatar.ai');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/openai', function () {
+    
+    // $result = OpenAI::completions()->create([
+    //     'model' => 'gpt-3.5-turbo-instruct',
+    //     'prompt' => 'PHP is'
+
+    // ]);
+
+    // echo $result->choices[0]->text;
+
+    // $result = OpenAI::images()->create([
+
+    //     'prompt' => 'A good professional avatar',
+    //     'n' => 2,
+    //     'size' => '512x512',
+
+    // ]);
+
+    //dd($result);
+    //echo $result->data[0]->url;
+});
