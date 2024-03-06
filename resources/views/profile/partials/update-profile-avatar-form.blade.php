@@ -7,8 +7,21 @@
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
             {{ __("Add or Update your account's avatar.") }}
         </p>
+        @php
 
+        $position = strpos($user->avatar, 'avatars.githubusercontent.com');
+
+        @endphp
+        @if($position !== false)
+
+        <img width="100" height="100" class="rounded-full mt-4" src="{{ $user->avatar }}" alt="user avatar"/>
+
+        @else
+        
         <img width="100" height="100" class="rounded-full mt-4" src="{{ asset('/storage/'.$user->avatar) }}" alt="user avatar"/>
+
+        @endif
+
     </header>
 
     <form method="post" action="{{ route('profile.avatar.ai') }}" class="mt-6 space-y-6" enctype="multipart/form-data">

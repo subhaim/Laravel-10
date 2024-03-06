@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Profile\AvatarController;
 use OpenAI\Laravel\Facades\OpenAI;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -101,24 +103,47 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/openai', function () {
+// Route::get('/openai', function () {
     
-    // $result = OpenAI::completions()->create([
-    //     'model' => 'gpt-3.5-turbo-instruct',
-    //     'prompt' => 'PHP is'
+//     $result = OpenAI::completions()->create([
+//         'model' => 'gpt-3.5-turbo-instruct',
+//         'prompt' => 'PHP is'
 
-    // ]);
+//     ]);
 
-    // echo $result->choices[0]->text;
+//     echo $result->choices[0]->text;
 
-    // $result = OpenAI::images()->create([
+//     $result = OpenAI::images()->create([
 
-    //     'prompt' => 'A good professional avatar',
-    //     'n' => 2,
-    //     'size' => '512x512',
+//         'prompt' => 'A good professional avatar',
+//         'n' => 2,
+//         'size' => '512x512',
 
-    // ]);
+//     ]);
 
-    //dd($result);
-    //echo $result->data[0]->url;
+//     dd($result);
+//     echo $result->data[0]->url;
+// });
+
+Route::post('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+})->name('login.github');
+
+Route::get('/auth/callback', function () {
+    $user = Socialite::driver('github')->user();
+
+    $user = User::firstOrCreate([
+        'email' => $user->email,
+    ], [
+        'name' => $user->name,
+        'avatar' => $user->avatar,
+        'password' => 'password',
+    ]);
+ 
+    Auth::login($user);
+ 
+    return redirect('/dashboard');
+
+    //dd($user);
+    // $user->token
 });
